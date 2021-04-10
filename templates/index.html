@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salary Prediction</title>
+  
+  <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <!--Stylesheet-->
+  <style>
+    /* bluemate.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
+    html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+    /* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
+    html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+    
+    /* End extract */
+    /* header content font style */
+    html,body{font-family:Verdana,sans-serif;font-size:15px;line-height:1.5}html{overflow-x:hidden}
+    
+    /* our team font style */
+    h1{font-size:36px}h2{font-size:50px}h3{font-size:24px}
+    
+    /* body text font style */
+    h1,h2,h3{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin:10px 0}.bluemate-wide{letter-spacing:4px}
+    
+    
+    /* nav bar */
+    .bluemate-btn,.bluemate-button{border:none;display:inline-block;padding:8px 16px;vertical-align:middle;overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;text-align:center;cursor:pointer;white-space:nowrap}
+    
+    /* padding */
+    .bluemate-container:after,.bluemate-container:before,.bluemate-panel:after,.bluemate-panel:before,.bluemate-row:after,.bluemate-row:before,.bluemate-row-padding:after,.bluemate-row-padding:before,
+    .bluemate-cell-row:before,.bluemate-cell-row:after,.bluemate-clear:after,.bluemate-clear:before,.bluemate-bar:before,.bluemate-bar:after{content:"";display:table;clear:both}
+    
+    /* position of profile picture */
+    .bluemate-col,.bluemate-half,.bluemate-third,.bluemate-twothird,.bluemate-threequarter,.bluemate-quarter{float:left;width:100%}
+    
+    
+    /* nav bar position */
+    .bluemate-top,.bluemate-bottom{position:fixed;width:100%;z-index:1}.bluemate-top{top:0}.bluemate-bottom{bottom:0}
+    
+    /* search button */
+    .bluemate-circle{border-radius:50%}
+    
+    /* position content of model table */
+    .bluemate-container,.bluemate-panel{padding:0.01em 16px}.bluemate-panel{margin-top:16px;margin-bottom:16px}
+    
+    /* Model table */
+    .bluemate-card-4,.bluemate-hover-shadow:hover{box-shadow:0 4px 10px 0 rgba(0,0,0,0.5),0 4px 20px 0 rgba(0,0,0,0.5)}
+    
+    /* Position of Our team heading*/
+    .bluemate-left-align{text-align:left!important}.bluemate-right-align{text-align:right!important}.bluemate-justify{text-align:justify!important}.bluemate-center{text-align:center!important}
+    
+    
+    /* Padding */
+    .bluemate-padding-64{padding-top:64px!important;padding-bottom:64px!important}
+    
+    
+    /* position of search button in header*/
+    .bluemate-left{float:left!important}.bluemate-right{float:right!important}
+    /* top header content style in text*/
+    .bluemate-button:hover{color:#000000!important;background-color:#ccc!important}
+    
+    /* navbr on small device style */
+    .bluemate-bar-block .bluemate-bar-item{width:100%;display:block;padding:8px 16px;text-align:left;border:none;white-space:normal;float:none;outline:0}
+    .bluemate-theme-d2 {color:#fff !important; background-color:#000000 !important}
+    .bluemate-hide{display:none!important}.bluemate-show-block,.bluemate-show{display:block!important}.bluemate-show-inline-block{display:inline-block!important}
+    
+    /* footer bg color */
+    .bluemate-theme-d1 {color:#fff !important; background-color:#000000 !important}
+    /* footer content font color */
+    .bluemate-theme-d1 a{color: #fff}
+    
+    /*-------------------------------------------------------------------------------------------------------------------------*/
+    /* Colors */
+    /* home icon style */
+    .bluemate-teal,.bluemate-hover-teal:hover{color:#fff!important;background-color:#000!important}
+    
+    /* search icon style */
+    .bluemate-pink,.bluemate-hover-pink:hover{color:#fff!important;background-color:#e91e63!important}
+    
+    /* top header style */
+    .bluemate-theme-d2 {color:#fff !important; background-color:#000000 !important}
+    /*-------------------------------------------------------------------------------------------------------------------------*/
+    
+    /*-----------------------------------------------------------------------------------------------------------------------------*/
+     /* Responsive */
+    .bluemate-spin{animation:bluemate-spin 2s infinite linear}@keyframes bluemate-spin{0%{transform:rotate(0deg)}100%{transform:rotate(359deg)}}
+    .bluemate-animate-fading{animation:fading 10s infinite}@keyframes fading{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
+    .bluemate-animate-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}
+    .bluemate-animate-top{position:relative;animation:animatetop 0.4s}@keyframes animatetop{from{top:-300px;opacity:0} to{top:0;opacity:1}}
+    .bluemate-animate-left{position:relative;animation:animateleft 0.4s}@keyframes animateleft{from{left:-300px;opacity:0} to{left:0;opacity:1}}
+    .bluemate-animate-right{position:relative;animation:animateright 0.4s}@keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}
+    .bluemate-animate-bottom{position:relative;animation:animatebottom 0.4s}@keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0;opacity:1}}
+    .bluemate-animate-zoom {animation:animatezoom 0.6s}@keyframes animatezoom{from{transform:scale(0)} to{transform:scale(1)}}
+    
+    @media (min-width:601px){.bluemate-col.m1{width:8.33333%}.bluemate-col.m2{width:16.66666%}.bluemate-col.m3,.bluemate-quarter{width:20%}.bluemate-col.m4,.bluemate-third{width:33.33333%}}
+    .bluemate-col.m5{width:60.66666%}.bluemate-col.m6,.bluemate-half{width:49.99999%}.bluemate-col.m7{width:58.33333%}.bluemate-col.m8,.bluemate-twothird{width:66.66666%}.bluemate-col.mm7{width:35.33333%;margin-top: 8%; margin-bottom: 0%; margin-left: 33%;}
+    @media (min-width:993px){.bluemate-col.l1{width:8.33333%}.bluemate-col.l2{width:16.66666%}.bluemate-col.l3{width:24.99999%}.bluemate-col.l4{width:33.33333%}
+    .bluemate-col.l5{width:41.66666%}.bluemate-col.l6{width:49.99999%}.bluemate-col.l7{width:58.33333%}.bluemate-col.l8{width:66.66666%}
+    .bluemate-col.l9{width:74.99999%}.bluemate-col.l10{width:83.33333%}.bluemate-col.l11{width:91.66666%}.bluemate-col.l12{width:99.99999%}}
+    
+    
+    
+    
+    @media (max-width:1205px){.bluemate-auto{max-width:95%}}
+    @media (max-width:600px){.bluemate-modal-content{margin:0 10px;width:auto!important}.bluemate-modal{padding-top:30px}
+    .bluemate-dropdown-hover.bluemate-mobile .bluemate-dropdown-content,.bluemate-dropdown-click.bluemate-mobile .bluemate-dropdown-content{position:relative}	
+    .bluemate-hide-small{display:none!important}.bluemate-mobile{display:block;width:100%!important}.bluemate-bar-item.bluemate-mobile,.bluemate-dropdown-hover.bluemate-mobile,.bluemate-dropdown-click.bluemate-mobile{text-align:center}
+    .bluemate-dropdown-hover.bluemate-mobile,.bluemate-dropdown-hover.bluemate-mobile .bluemate-btn,.bluemate-dropdown-hover.bluemate-mobile .bluemate-button,.bluemate-dropdown-click.bluemate-mobile,.bluemate-dropdown-click.bluemate-mobile .bluemate-btn,.bluemate-dropdown-click.bluemate-mobile .bluemate-button{width:100%}}
+    @media (max-width:768px){.bluemate-modal-content{width:500px}.bluemate-modal{padding-top:50px}}
+    @media (min-width:993px){.bluemate-modal-content{width:900px}.bluemate-hide-large{display:none!important}.bluemate-sidebar.bluemate-collapse{display:block!important}}
+    @media (max-width:992px) and (min-width:601px){.bluemate-hide-medium{display:none!important}}
+    @media (max-width:992px){.bluemate-sidebar.bluemate-collapse{display:none}.bluemate-main{margin-left:0!important;margin-right:0!important}.bluemate-auto{max-width:100%}}
+    
+    @media (max-width:600px){.bluemate-col.mm7{width:35.33333%;margin-top: 0%; margin-bottom: 0%; margin-left: 10%;}}
+    @media (max-width:1205px){.mm7{max-width:100%}}
+    @media (max-width:600px){.mm7{margin:0 30px;width:auto!important}.mm7{padding-top:10px;}}
+    
+    @media (max-width:600px).services{width: 100%; height: 200vh;}
+        
+        
+    /*---------------------------------------------------------------------------------------------------------------------*/
+    
+    /* Work Row */
+    /* Font Style model heading*/
+    .login-content h2{
+    	margin: 15px 0;
+    	color: #333;
+    	text-transform: uppercase;
+    	font-size: 1.9rem;
+    }
+    
+    /* Text box Style */
+    .login-content .input-div{
+    	position: relative;
+        display: grid;
+        grid-template-columns: 7% 93%;
+        margin: 25px 0;
+        padding: 5px 0;
+        border-bottom: 2px solid #d9d9d9;
+    }
+    
+    .login-content .input-div:hover {
+        border-color:rgba(236, 164, 164, 1);
+    }
+    /* Icon Style */
+    .i{
+    	color: #333;
+    	display: flex;
+    	justify-content: center;
+    	align-items: center;
+    }
+    
+    /* Model Height style */
+    .input-div > div{
+        position: relative;
+    	height: 45px;
+    }
+    
+    /* Text Box Style */
+    .input-div > div > input{
+    	position: absolute;
+    	left: 0;
+    	top: 0;
+    	width: 100%;
+    	height: 100%;
+    	border: none;
+    	outline: none;
+    	background: none;
+    	padding: 0.5rem 0.7rem;
+    	font-size: 1rem;
+    	color: #555;
+    	font-family: 'poppins', sans-serif;
+    }
+    
+    ::placeholder {
+      color: black;
+    }
+    
+    .input-field {
+      color:#000;
+      font-size:20px;
+    }
+    
+    /* Submit button Style */
+    .btn{
+    	display: block;
+    	width: 100%;
+    	height: 50px;
+    	border-radius: 25px;
+    	outline: none;
+    	border: none;
+    	background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+    	background-size: 200%;
+    	font-size: 1.2rem;
+    	color: #fff;
+    	font-family: 'Poppins', sans-serif;
+    	text-transform: uppercase;
+    	margin: 1rem 0;
+    	cursor: pointer;
+    	transition: .5s;
+    }
+    .btn:hover{
+    	background-position: right;
+    }
+    
+    /* Pannel heading style */
+    .panel-heading {
+      background-color: rgb(109, 231, 201);
+      text-align: center;
+      margin-top: 0px;
+      font-style: solid;
+    }
+    
+    /* First banner */
+    .banner-1{
+        width: 100%;
+        height: 100vh;
+        background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url("https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/banner-bg.jpg?alt=media&token=66737e13-fa0b-4410-9901-79373a6a24bd");
+        background-size: cover;
+        background-position: center;
+    }
+    /* Thired banner */
+    .services{
+        width: 100%;
+        height: 145vh;
+        background-image: linear-gradient(rgba(0, 184, 197, 0.75),rgba(236, 164, 164, 0.75)),url("https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/your_success.jpg?alt=media&token=a853864e-1c6c-4250-9ea7-88f23ca132c4");
+        background-size: cover;
+        background-position: center;
+    }
+    /* Middle of banner */
+    
+    .container{
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        color: #fff;
+    }
+    .container h1{
+        font-size: 70px;
+        margin-top: 80px;
+    }
+    .container p{
+        margin: 20px auto;
+        font-weight: 100;
+        line-height: 25px;
+    }
+    button{
+        width: 200px;
+        padding: 15px 0;
+        text-align: center;
+        margin: 20px 10px;
+        border-radius: 25px;
+        font-weight: bold;
+        border: 2px solid #009688;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        outline: none;
+    }
+    span{
+        background: #009688;
+        height: 100%;
+        width: 0;
+        border-radius: 25px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: -1;
+        transition: 0.5s;
+    }
+    button:hover span{
+        width: 100%;
+    }
+    button:hover{
+        border: none;
+    }
+    
+    /* Model test box value
+    input[type="text"] {
+    font-size:50px;
+    color: black;
+   }  
+   */ 
+    /*modal box*/
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+      
+      /* Modal Content/Box */
+      .modal-content {
+        /*background-color: #fefefe;*/
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        /*border: 1px solid #888;*/
+        width: 20%; /* Could be more or less, depending on screen size */
+      }
+      
+      /* The Close Button */
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    
+    
+      /*modal card */
+      .modal-card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color:#fff;
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+      }
+      
+      .modal-title {
+        color: grey;
+        font-size: 18px;
+      }
+      
+      .cardBtn{
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+      }
+      
+      .card-link{
+        text-decoration: none;
+        font-size: 22px;
+        color: black;
+      }
+      
+      .cardBtn:hover, a:hover {
+        opacity: 0.7;
+      }
+   </style>
+   <!--End Stylesheet-->
+</head>
+<body id="myPage">
+    
+     <!-- Navbar -->
+     <div class="bluemate-top">
+      <div class="bluemate-bar bluemate-theme-d2 bluemate-left-align">
+        <a class="bluemate-bar-item bluemate-button bluemate-hide-medium bluemate-hide-large bluemate-right bluemate-hover-white bluemate-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+        <a href="#" class="bluemate-bar-item bluemate-button bluemate-teal"><img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/logo.png?alt=media&token=979629f3-e6c9-4585-8fe1-ad862b6ca175" alt="" srcset="" style="height:25px;width:30px;"></a>
+        <a href="#prediction" class="bluemate-bar-item bluemate-button bluemate-hide-small bluemate-hover-white">Services</a>
+        <a href="#team" class="bluemate-bar-item bluemate-button bluemate-hide-small bluemate-hover-white">Team</a>
+        <a href="#prediction" class="bluemate-bar-item bluemate-button bluemate-hide-small bluemate-hover-white">Project</a>
+        <a href="#team" class="bluemate-bar-item bluemate-button bluemate-hide-small bluemate-hover-white">About</a>
+        <a href="#team" class="bluemate-bar-item bluemate-button bluemate-hide-small bluemate-hover-white">Contact</a>    
+        <a href="#" class="bluemate-bar-item bluemate-button bluemate-hide-small bluemate-right bluemate-hover-teal" title="Search"><i class="fa fa-search"></i></a>
+      </div>
+    </div><!-- Navbar on small screens -->
+    <div id="navDemo" class="bluemate-bar-block bluemate-theme-d2 bluemate-hide bluemate-hide-large bluemate-hide-medium">
+      <a href="#prediction" class="bluemate-bar-item bluemate-button">Services</a>
+      <a href="#team" class="bluemate-bar-item bluemate-button">team</a>
+      <a href="#prediction" class="bluemate-bar-item bluemate-button">Project</a>
+      <a href="#team" class="bluemate-bar-item bluemate-button">About</a>
+      <a href="#team" class="bluemate-bar-item bluemate-button">Contact</a>
+    </div>
+
+    <!-- Image Header -->
+    <div class="banner-1"> 
+      <div class="container">
+        <h1>Salary Prediction</h1>
+        <p>Get your salary predicted now!</p>
+        <a href="#prediction" class="button"><button type="button"><span></span>Get Started</button></a>  
+        </div>
+    </div> 
+     
+    <!-- Model Container -->
+    <div class="services" id="prediction">
+      <div class="bluemate-col mm7">
+        <div class="bluemate-container bluemate-card-4">
+          <div class="login-content">
+              <div class="panel-heading">
+                <h2 class="title">Predict Salary Analysis</h2>
+              </div>
+              <!--Persional Details Pannel Form-->
+           <form action="{{ url_for('predict')}}" method="POST">
+              <div class="input-div input-field">
+                <div class="i">
+                  <i class="fas fa-user"></i>
+                </div>
+                <div class="div">
+                  <input type="text" name="Name" style="color: black" placeholder="Enter Your Name"  required="required" minlength="5" maxlength="30" />
+                </div>
+              </div>
+              <!---->
+              <div class="input-div input-field">
+                 <div class="i">
+                   <i class="fas fa-address-book"></i>
+                 </div>
+                 <div class="div">
+                   <input type="text" name="Mobile" style="color: black" placeholder="Enter Your Contact" required="required" minlength="10" maxlength="13" />
+                 </div>
+              </div>
+              <!---->
+              <div class="input-div input-field">
+                 <div class="i">
+                   <i class="fas fa-envelope"></i>
+                 </div>
+                 <div class="div">
+                   <input type="email" name="Email" style="color: black" placeholder="Enter Your Email" required="required" minlength="15" maxlength="35" />
+                 </div>
+              </div>
+              <!--End Persional Details Pannel Form-->
+           <!--Model Pannel Form-->
+           
+              <div class="input-div input-field">
+                <div class="i">
+                  <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="div">
+                  <input type="text" name="experience" style="color: black" placeholder="Experience(0-10)" required="required" minlength="1" maxlength="2" />
+                </div>
+              </div>
+              <div class="input-div input-field">
+                <div class="i"> 
+                  <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="div">
+                  <input type="text" name="test_score" style="color: black" placeholder="Test Score(0-10)" required="required" minlength="1" maxlength="2" />
+                </div>
+              </div>
+              <div class="input-div input-field">
+                <div class="i"> 
+                  <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="div">
+                  <input type="text" name="interview_score" style="color: black" placeholder="Interview Score(0-10)" required="required" minlength="1" maxlength="2" />
+                </div>
+              </div>
+              <input type="submit" class="btn" id="myBtn" value="Predict">
+            <!--End Model Pannel Form-->
+            <!--Result Variable-->
+            
+            <!--End Result Variable-->
+            <!--modal for button start-->
+            
+             <!--modal for button end-->
+            </form>           
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- team Container -->
+    <div class="bluemate-container bluemate-padding-64 bluemate-center" id="team">
+      <h2 style="text-decoration: underline; text-decoration-color: rgb(14, 168, 173)">OUR TEAM</h2>
+      <p>We Believe in:<br>"The strength of the team is each individual member. The strength of each member is the team."</p>
+      <div class="bluemate-quarter">
+        <img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/ankita.jpg?alt=media&token=09bf3937-e4e4-4f2b-a720-5774e751ab7a" alt="Boss" style="width:50%" class="bluemate-circle bluemate-hover-opacity">
+        <h3>Ankita</h3>
+      </div>
+
+      <div class="bluemate-quarter">
+        <img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/bernali.jpg?alt=media&token=7fb397d5-162a-49f5-a214-e6ed562c4551" alt="Boss" style="width:50%" class="bluemate-circle bluemate-hover-opacity">
+        <h3>Bernali</h3>
+      </div>
+
+      <div class="bluemate-quarter">
+        <img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/nihar-5.jpeg?alt=media&token=915df803-75cc-49dc-8165-8e9687cc39c9" alt="Boss" style="width:50%" class="bluemate-circle bluemate-hover-opacity">
+        <h3>Nihar</h3>
+      </div>
+
+      <div class="bluemate-quarter">
+        <img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/bijay.jpg?alt=media&token=3500bf2c-0c3a-4f6d-a35e-e069bd73e2f0" alt="Boss" style="width:50%" class="bluemate-circle bluemate-hover-opacity">
+        <h3>Bijay</h3>
+      </div>
+
+      <div class="bluemate-quarter">
+        <img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/sachin.jpg?alt=media&token=0ef4227d-f6c6-4f4c-b8ea-53f9f182bf20" alt="Boss" style="width:50%" class="bluemate-circle bluemate-hover-opacity">
+        <h3>Sachin</h3>
+      </div>
+
+      <div class="bluemate-quarter">
+        <img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/Jagatjit.jpg?alt=media&token=76b39ce9-ccc4-4c16-b498-3bd629c17314" alt="Boss" style="width:50%" class="bluemate-circle bluemate-hover-opacity">
+        <h3>Jagatjit</h3>
+      </div>
+
+      <div class="bluemate-quarter">
+        <img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/dibya.jpg?alt=media&token=a6fdf30a-5b6f-4201-891b-9877e53a367a" alt="Boss" style="width:50%" class="bluemate-circle bluemate-hover-opacity">
+        <h3>Dibya</h3>
+      </div>
+
+      <div class="bluemate-quarter">
+        <img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/uday.jfif?alt=media&token=d1278d65-64cc-4549-a760-9472d176b825" alt="Boss" style="width:50%" class="bluemate-circle bluemate-hover-opacity">
+        <h3>Uday</h3>
+      </div>
+
+      <div class="bluemate-quarter">
+        <img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/santosh.jpg?alt=media&token=9ec489e9-0c98-4126-ae51-d034379cc27c" alt="Boss" style="width:50%" class="bluemate-circle bluemate-hover-opacity">
+        <h3>Santosh</h3>
+      </div>
+    </div>
+    <!--End team Container -->
+
+    <!-- Footer -->
+    <footer class="bluemate-container bluemate-padding-32 bluemate-theme-d1 bluemate-center">
+      <h4>Follow Us</h4>
+      <a class="bluemate-button bluemate-large bluemate-teal" href="https://www.facebook.com/abstracttoknowing/" title="Facebook"><i class="fa fa-facebook"></i></a>
+      <a class="bluemate-button bluemate-large bluemate-teal" href="https://twitter.com/atk7462/" title="Twitter"><i class="fa fa-twitter"></i></a>
+      <a class="bluemate-button bluemate-large bluemate-teal" href="https://www.google.com/" title="Google +"><i class="fa fa-google-plus"></i></a>
+      <a class="bluemate-button bluemate-large bluemate-teal" href="https://www.instagram.com/abstracttoknowing/" title="Instagram"><i class="fa fa-instagram"></i></a>
+      <a class="bluemate-button bluemate-large bluemate-teal bluemate-hide-small" href="https://in.linkedin.com/" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+      <p>©<a href="https://www.bcetorissa.org/" target="_blank">BCET 2021</a></p>
+    </footer>
+    <!--End Footer -->
+    <script>
+     // Script for side navigation
+      function bluemate_open() {
+        var x = document.getElementById("mySidebar");
+        x.style.width = "300px";
+        x.style.paddingTop = "10%";
+        x.style.display = "block";
+      }
+      
+      // Close side navigation
+      function bluemate_close() {
+        document.getElementById("mySidebar").style.display = "none";
+      }
+      
+      // Used to toggle the menu on smaller screens when clicking on the menu button
+      function openNav() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("bluemate-show") == -1) {
+          x.className += " bluemate-show";
+        } else { 
+          x.className = x.className.replace(" bluemate-show", "");
+        }
+      }
+
+      
+    </script>
+  
+ 
+</body>
+</html>

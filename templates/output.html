@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Output</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+       /*modal card */
+        body{
+            background:linear-gradient(90deg, rgba(0, 201, 255,0.7) 0%, rgba(146, 254, 157,0.7) 100%),url("https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/output-bg.jpg?alt=media&token=6f9fe611-12ba-43c8-8988-49d38e42d511");
+            background-size:cover;
+            background-position:center;
+            } 
+                 
+        .modal-card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+            background-color:rgba(255, 255, 255, 0.3);
+            border-radius:25px;
+            max-width: 400px;
+            margin: 60px auto auto auto;
+            text-align: center;
+            font-family: 'Raleway', sans-serif;;
+            padding:50px 50px 20px 50px;
+            padding-top: 0;
+            }
+          
+        .modal-title {
+            color: grey;
+            font-size: 18px;
+            line-height:20px;
+            }
+        .modal-email {
+            color: black;
+            font-size: 25px;
+            line-height:20px;
+            }
+  
+        .cardBtn {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            border-radius:25px;
+            text-align: center;
+            cursor: pointer;
+            width: 80%;
+            font-size: 18px;
+            }
+        
+        .card-link{
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+            }
+        
+        .cardBtn:hover, a:hover {
+            opacity: 0.9;
+            }
+            
+        .modal-card .modal-title{
+            color: black;
+            }
+        
+        .i {
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+        
+        .modal-card h2{
+            padding-top:3%;
+            }
+         .modal-card p{
+             font-size: 22px;
+         }   
+            
+    </style>
+</head>
+<body>
+    <div class="modal-card">
+        <img src="https://firebasestorage.googleapis.com/v0/b/email-9a4ba.appspot.com/o/output.gif?alt=media&token=c1891e60-ca15-42e8-96c1-644c5400e484" alt="User's Pucture" style="width:100%;height:200px;">
+        <h1>{{ your_name }}</h1>
+        <p class="modal-title">Contact:<span style="font-family:'Arial',sans-serif"> {{ your_contact }}</span></p>
+        <p class="modal-email"><span style="font-family:'Arial',sans-serif;font-size:15px;">{{ your_email }}</span></p>
+        
+        <p class="modal-title">Experience:<span style="font-family:'Arial',sans-serif"> {{ your_experience }}</span></p>
+        <p class="modal-title">Test-Score:<span style="font-family:'Arial',sans-serif"> {{ your_test_score }}</span></p>
+        <p class="modal-title">Interview_Score:<span style="font-family:'Arial',sans-serif"> {{ your_interview_score }}</span></p>
+        
+        </p><div class="modal-title"><font size="5px">Your Prediction Salary should be :</font></p></div><p><span style="font-family:'Arial',sans-serif"><font size="10px">₹ {{ prediction_sallary }}</font></span></p>
+        
+        <p><a href="https://predict-your-prediction-salary.herokuapp.com/#prediction"><button class="cardBtn">Predict More</button></a></p>
+    </div>
+</body>
+</html>
